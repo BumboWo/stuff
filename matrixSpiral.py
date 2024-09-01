@@ -42,7 +42,7 @@ def directionTurn2D(currentDir, turn):
         currentDir += 1
     return currentDir % 4
 
-def executeSpiral(row, startPosition, startDirection, turn):
+def executeSpiral(row, startPosition, startDirection, turn, reversed=False):
     outMatrix = createMaxtrix2D(row, row)
 
     currentDirection = startDirection
@@ -57,7 +57,8 @@ def executeSpiral(row, startPosition, startDirection, turn):
 
         for j in range(0, x):
             translate2D(currentPosition, directions[currentDirection])
-            mat2Dappend(outMatrix, currentPosition[0], currentPosition[1], currentVal)
+            if(not reversed):mat2Dappend(outMatrix, currentPosition[0], currentPosition[1], currentVal)
+            if(reversed):mat2Dappend(outMatrix, currentPosition[0], currentPosition[1], row**2-currentVal+1)
             currentVal += 1
 
         currentDirection = directionTurn2D(currentDirection, turn)
@@ -75,30 +76,31 @@ print("⬆️ 🟠🟠🟠🟠🟠⬆️")
 print("  ➡️ 6️⃣   5️⃣ ⬅️")
 
 switch = int(input("Enter your choice : "))
+rev = input("Reverse the spiral ? [Yes/No] : ").lower()
 
 if(switch==1):
     rows = int(input("Enter number of rows : "))
-    executeSpiral(rows, [1, 1], 1, "left")
+    executeSpiral(rows, [1, 1], 1, "right", "y" in rev)
 if(switch==2):
     rows = int(input("Enter number of rows : "))
-    executeSpiral(rows, [1, rows], 3, "right")
+    executeSpiral(rows, [1, rows], 3, "left", "y" in rev)
 if(switch==3):
     rows = int(input("Enter number of rows : "))
-    executeSpiral(rows, [1, rows], 0, "right")
+    executeSpiral(rows, [1, rows], 0, "right", "y" in rev)
 if(switch==4):
     rows = int(input("Enter number of rows : "))
-    executeSpiral(rows, [rows, rows], 2, "left")
+    executeSpiral(rows, [rows, rows], 2, "left", "y" in rev)
 if(switch==5):
     rows = int(input("Enter number of rows : "))
-    executeSpiral(rows, [rows, rows], 3, "right")
+    executeSpiral(rows, [rows, rows], 3, "right", "y" in rev)
 if(switch==6):
     rows = int(input("Enter number of rows : "))
-    executeSpiral(rows, [rows, 1], 1, "left")
+    executeSpiral(rows, [rows, 1], 1, "left", "y" in rev)
 if(switch==7):
     rows = int(input("Enter number of rows : "))
-    executeSpiral(rows, [rows, 1], 2, "right")
+    executeSpiral(rows, [rows, 1], 2, "right", "y" in rev)
 if(switch==8):
     rows = int(input("Enter number of rows : "))
-    executeSpiral(rows, [1, 1], 0, "left")
+    executeSpiral(rows, [1, 1], 0, "left", "y" in rev)
 
 
